@@ -63,7 +63,7 @@ organisations = ['Beyond Coal','Environmental Protection Agency','Rainforest Con
 # List of visualisations to use for insights and information page
 
 viz = ['How Tweets are spread' ,'Most Used Words',
-       'Length of Tweets' ,'Most used Emojis' ]
+       'Length of Tweets','Named Entities' ,'Most used Emojis' ]
        
 
 # The main function where we will build the actual app
@@ -406,6 +406,17 @@ def main():
             st.markdown('* PRO Climate Change Tweets are generally longer with consistent length distribution')
             st.markdown('* ANTI Climate Change Tweets are generally shorter with inconsistent length distribution')
             
+            
+        if select_viz == 'Named Entities' :
+            disp = Image.open('resources/imgs/entities.png')
+            st.image(disp,width=720)
+            st.markdown('In information extraction, a named entity is a real-world object,'\
+                        'such as persons, locations, organizations, products, etc.,'\
+                        'that can be denoted with a proper name. It can be abstract or have a physical existence.')
+            st.subheader('Insights')
+            st.markdown('* Organisations , People & Geo-Political entities appear frequently in tweets')
+            st.markdown('* Time and Location information appear less in tweets')
+            st.markdown(' More info on the subject - https://monkeylearn.com/blog/named-entity-recognition/ ' )
         
         if select_viz == 'Most used Emojis' :
             disp = Image.open('resources/imgs/top_emoji.png')
