@@ -88,11 +88,11 @@ def main():
     # Creating sidebar with selection box -
     # you can create multiple pages this way
     options = ["Belief Predictor AI", "Hashtag Generator",
-              'Ambassodors & Partners','Market Research Tools']
+              'Ambassadors & Partners','Market Research Tools']
     selection = st.sidebar.selectbox("Select Activity", options)
     
     # Building out Brand Ambassodors page ( Organisation & People )
-    if selection == 'Ambassodors & Partners' :
+    if selection == 'Ambassadors & Partners' :
         st.subheader('Align your business with people and organisations who believe in climate change')
         cat = ['Organisations' , 'People' ]
         sel = st.selectbox('Select Category' , cat)
