@@ -86,9 +86,11 @@ def main():
     
     # Creating sidebar with selection box -
     # you can create multiple pages this way
+    
     options = ["Belief Predictor AI", "Hashtag Generator",
               'Ambassadors & Partners','Market Research Tools']
     selection = st.sidebar.selectbox("Select Activity", options)
+    
     
     # Building out Brand Ambassodors page ( Organisation & People )
     if selection == 'Ambassadors & Partners' :
@@ -391,8 +393,10 @@ def main():
             st.markdown('* 23% of the tweets are Facts/News - Meaning lots of media coverage towards the topic')
             
         if select_viz == 'Most Used Words' :
-            disp = Image.open('resources/imgs/frequent_words.png')
-            st.image(disp,width=850)
+            disp_1 = Image.open('resources/imgs/frequent_words_pro.png')
+            st.image(disp_1,width=690)            
+            disp_2 = Image.open('resources/imgs/frequent_words_anti.png')
+            st.image(disp_2,width=690)
             st.subheader('Insights')
             st.markdown('* Use Frequent PRO Climate-Change words towards your branding and advertising')
             st.markdown('* AVOID Frequent ANTI Climate-Change words towards your branding and advertising')
@@ -407,8 +411,10 @@ def main():
             
             
         if select_viz == 'Named Entities' :
-            disp = Image.open('resources/imgs/entities.png')
-            st.image(disp,width=720)
+            disp_1 = Image.open('resources/imgs/entity_pro.png')
+            st.image(disp_1,width=680)
+            disp_2 = Image.open('resources/imgs/entity_anti.png')
+            st.image(disp_1,width=680)
             st.markdown('In information extraction, a named entity is a real-world object,'\
                         'such as persons, locations, organizations, products, etc.,'\
                         'that can be denoted with a proper name. It can be abstract or have a physical existence.')
