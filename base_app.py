@@ -113,8 +113,7 @@ def main():
     # you can create multiple pages this way
     
     options = ['Welcome',"Tweet analyser", "Hashtag Generator",
-              'Ambassadors & Partners','Tweet Daily Sentiment Meter',
-              'Market Research Tools']
+              'Ambassadors & Partners','Live Sentiment Analysis']
     # selection = st.sidebar.selectbox("Select Activity", options)
     selection = st.sidebar.radio(label="Select Activity",  
                                     options=options)
@@ -461,48 +460,6 @@ def main():
             for i in range(len(rand_hash)):                
                 st.success(rand_hash[i])
             
-
-    # Building out the "Market Research tools" page
-    if selection == "Market Research Tools":
-        st.subheader("Relevant statistical analysis to aid your market research")
-        # You can read a markdown file from supporting resources folder
-        select_viz = st.selectbox('Select Information' , viz)
-        
-        if select_viz == 'How Tweets are spread' :
-            disp = Image.open('resources/imgs/Tweet_distribution.png')
-            st.image(disp,width=600)
-            st.subheader('Insights')
-            st.markdown('* Most Tweets are PRO Climate Change - That is good news for your Product\Service')
-            st.markdown('* 23% of the tweets are Facts/News - Meaning lots of media coverage towards the topic')
-            
-        if select_viz == 'Most Used Words' :
-            disp_1 = Image.open('resources/imgs/frequent_words_pro.png')
-            st.image(disp_1,width=690)            
-            disp_2 = Image.open('resources/imgs/frequent_words_anti.png')
-            st.image(disp_2,width=690)
-            st.subheader('Insights')
-            st.markdown('* Use Frequent PRO Climate-Change words towards your branding and advertising')
-            st.markdown('* AVOID Frequent ANTI Climate-Change words towards your branding and advertising')
-            st.markdown('* AVOID all TRUMP related words')
-            
-        if select_viz == 'Length of Tweets' :
-            disp = Image.open('resources/imgs/tweet_length.png')
-            st.image(disp,width=600)
-            st.subheader('Insights')
-            st.markdown('* PRO Climate Change Tweets are generally longer with consistent length distribution')
-            st.markdown('* ANTI Climate Change Tweets are generally shorter with inconsistent length distribution')
-        
-        if select_viz == 'Most used Emojis' :
-            disp = Image.open('resources/imgs/all_emojis.jpg')
-            st.image(disp,width=600)
-            st.subheader('Insights')
-            st.markdown('* Lastly , Spice up your Tweets with these emojis')
-            
-        
-            
-            
-
-
     # Building out the predication page
     if selection == "Tweet analyser":
         st.subheader("Predict a person's stance on climate change based on their tweet")
@@ -547,7 +504,7 @@ def main():
     
     # Build Live Tweet Streaming page
     
-    if selection == "Tweet Daily Sentiment Meter":
+    if selection == "Live Sentiment Analysis":
             st.subheader("Gauge how people felt about climate change in the last 24-hours")
             disp = Image.open('resources/imgs/twitter_api.png')
             st.image(disp,width=100)
@@ -586,28 +543,16 @@ def main():
                     y_pred = model_svc.predict(X)
                     tweet_df['sentiment'] = y_pred
                     
-                    # Distribution of each class
-                    
-                    pro_dist = (len(tweet_df[tweet_df['sentiment'] == 1 ])/200)*100
-                    anti_dist = (len(tweet_df[tweet_df['sentiment'] == -1 ])/200)*100
-                    neutral_dist = (len(tweet_df[tweet_df['sentiment'] == 0 ])/200)*100
-                    news_dist = (len(tweet_df[tweet_df['sentiment'] == 2 ])/200)*100
-
                     # Displaying target distribution
 
                     fig, axes = plt.subplots(figsize=(25, 20))
 
-                    axes.pie(tweet_df['sentiment'].value_counts(),
-                                labels=['Pro', 'News', 'Neutral', 'Anti'],
-                                )
+                    pie_chart = axes.pie(tweet_df['sentiment'].value_counts(),
+                                labels=['Pro', 'News', 'Neutral', 'Anti'])
+                    
                     fig.suptitle('Distribution of the Tweets', fontsize=35)
                 st.success('Done!')
-                st.pyplot()
-                st.subheader('Daily sentiment distribution as of ' + ' ' +  str(yesterday))
-                st.markdown(str(int(pro_dist)) + '%' + ' ' +  'of Tweets were PRO climate change')
-                st.markdown(str(int(anti_dist)) + '%' + ' ' +  'of Tweets were ANTI climate change' )
-                st.markdown(str(int(neutral_dist)) + '%'  + ' ' +  'of Tweets were NEUTRAL' )
-                st.markdown(str(int(news_dist)) + '%'  + ' ' +  'of Tweets were NEWS related' ) 
+                st.pyplot()                
                 
             
             
