@@ -72,8 +72,8 @@ organisations = ['Beyond Coal','ClimateLaunchpad','Docsforclimate','Earth Life',
 
 # List of visualisations to use for insights and information page
 
-viz = ['How Tweets are spread' ,'Most Used Words',
-       'Length of Tweets','Most used Emojis' ]
+viz = ['How Tweets are spread' ,'Buzzwords',
+       'Length of Tweets','Most used Emojis','Named Entities' ]
 
 # List of all models
 
@@ -112,7 +112,7 @@ def main():
     # Creating sidebar with selection box -
     # you can create multiple pages this way
     
-    options = ['Welcome',"Tweet analyser", "Hashtag Generator",
+    options = ['Welcome','Insights',"Tweet analyser", "Hashtag Generator",
               'Ambassadors & Partners','Live Sentiment Analysis']
     # selection = st.sidebar.selectbox("Select Activity", options)
     selection = st.sidebar.radio(label="Select Activity",  
@@ -125,7 +125,10 @@ def main():
         video_bytes = video_file.read()        
         st.video(video_bytes)
         
-    
+        img = Image.open('resources/imgs/Landing_page_image.png')
+        st.image(img,width=710)
+
+        
     # Building out Brand Ambassodors page ( Organisation & People )
     if selection == 'Ambassadors & Partners' :
         st.subheader('Align your business with PRO climate change organisations and people')
@@ -459,6 +462,61 @@ def main():
             rand_hash = random.sample(pro_hash,num_hash) 
             for i in range(len(rand_hash)):                
                 st.success(rand_hash[i])
+                
+    # Building out the "Market Research tools" page
+    if selection == "Insights":
+        st.subheader("Relevant statistical analysis to aid your market research")
+        # You can read a markdown file from supporting resources folder
+        select_viz = st.selectbox('Select Information' , viz)
+        
+        if select_viz == 'How Tweets are spread' :
+            disp = Image.open('resources/imgs/Tweet_distribution.png')
+            st.image(disp,width=600)
+            st.subheader('Observations')
+            st.markdown('* Most tweets are PRO climate change - That is good news for environmentally conscious companies.')
+            st.markdown('* 23% of the tweets are Facts/News - Meaning there is a lot of media coverage towards the topic.')
+            
+        if select_viz == 'Buzzwords' :
+            disp_1 = Image.open('resources/imgs/word_cloud.png')
+            st.image(disp_1,width=690)            
+            st.subheader('Observations')
+            st.markdown('* The top 3 buzzwords accross all classes are climate change and rt (Retweet).'\
+                       'The frequency of rt ( Retweet ) means that a lot of the same information and/or '\
+                        'opinions are being shared and viewed by large audiences.')
+            st.markdown('* In PRO climate change tweets, words like real, believe, think and fight occur frequently. ')
+            st.markdown('* In contrast ANTI climate change tweets contain words like hoax, scam, tax, liberal and fake.')
+            
+        if select_viz == 'Length of Tweets' :
+            disp = Image.open('resources/imgs/tweet_length.png')
+            st.image(disp,width=600)
+            st.subheader('Observations')
+            st.markdown('* PRO climate change tweets are generally longer with consistent length distribution.')
+            st.markdown('* ANTI climate change tweets are generally shorter with inconsistent length distribution.')
+            st.markdown('* Neutral climate change tweets tend to have the most variability in tweet length.')
+
+
+        if select_viz == 'Named Entities' :
+            disp_1 = Image.open('resources/imgs/entity_pro.png')
+            st.image(disp_1,width=680)
+            disp_2 = Image.open('resources/imgs/entity_anti.png')
+            st.image(disp_1,width=680)
+            st.subheader('What are Named Entities ?')
+            st.markdown('In information extraction, a named entity is a real-world object,'\
+                        'such as persons, locations, organizations, products, etc.,'\
+                        'that can be denoted with a proper name. It can be abstract or have a physical existence.')
+            st.subheader('Observations')
+            st.markdown('* Organisations , People & Geo-Political entities appear frequently in tweets.')
+            st.markdown('* Time and Location information generally appear less in tweets.')
+            st.markdown(' More info on the subject - https://monkeylearn.com/blog/named-entity-recognition/ ' )
+
+        if select_viz == 'Most used Emojis' :
+            disp = Image.open('resources/imgs/top_emoji.png')
+            disp = Image.open('resources/imgs/all_emojis.jpg')
+            st.image(disp,width=600)
+            st.subheader('Observations')
+            st.markdown('* The Tweets emojis show varying sentiment , From expressing care and concern '\
+                        '( i.e Heart and Globe emojis ) to an expression of ridicule and disbelief '\
+                        '( i.e Laughing and Rolling eyes emojis )')
             
     # Building out the predication page
     if selection == "Tweet analyser":
