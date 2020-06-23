@@ -72,8 +72,8 @@ organisations = ['Beyond Coal','ClimateLaunchpad','Docsforclimate','Earth Life',
 
 # List of visualisations to use for insights and information page
 
-viz = ['How Tweets are spread' ,'Buzzwords',
-       'Length of Tweets','Most used Emojis','Named Entities' ]
+viz = ['Tweet distribution' ,'Buzzwords',
+       'Length of Tweets','Most used Emojis']
 
 # List of all models
 
@@ -101,7 +101,7 @@ def main():
     
     html_temp = """
 	<div style="background-color:lightblue;padding:10px">
-	<h2 style="color:white;text-align:center;">Climate Change Business Targeting App </h2>
+	<h2 style="color:white;text-align:center;">FIND YOUR NICHE </h2>
 	</div>
     
     """
@@ -112,7 +112,7 @@ def main():
     # Creating sidebar with selection box -
     # you can create multiple pages this way
     
-    options = ['Welcome','Insights',"Tweet analyser", "Hashtag Generator",
+    options = ['Welcome','EDA & Insights',"Tweet analyser", "Hashtag Generator",
               'Ambassadors & Partners','Live Sentiment Analysis']
     # selection = st.sidebar.selectbox("Select Activity", options)
     selection = st.sidebar.radio(label="Select Activity",  
@@ -121,13 +121,14 @@ def main():
     # Building out landing page
     
     if selection == 'Welcome' :
+        
+        img = Image.open('resources/imgs/Landing_page_image.png')
+        st.image(img,width=710)
+        
         video_file = open('resources/imgs/Landing_video.mp4', 'rb')
         video_bytes = video_file.read()        
         st.video(video_bytes)
         
-        img = Image.open('resources/imgs/Landing_page_image.png')
-        st.image(img,width=710)
-
         
     # Building out Brand Ambassodors page ( Organisation & People )
     if selection == 'Ambassadors & Partners' :
@@ -456,7 +457,7 @@ def main():
     
     # Building out Hashtag generation page
     if selection == 'Hashtag Generator' :
-        st.subheader('Generate Hashtags your business can use for social media ads')
+        st.subheader('Generate PRO climate change hashtags your business can use for social media ads')
         num_hash = st.slider('Select number of Hashtags to generate' , 1, 10 )
         if st.button("Generate"):           
             rand_hash = random.sample(pro_hash,num_hash) 
@@ -464,22 +465,22 @@ def main():
                 st.success(rand_hash[i])
                 
     # Building out the "Market Research tools" page
-    if selection == "Insights":
-        st.subheader("Relevant statistical analysis to aid your market research")
+    if selection == "EDA & Insights":
+        st.subheader("Relevant exploratory data analysis to aid your market research")
         # You can read a markdown file from supporting resources folder
         select_viz = st.selectbox('Select Information' , viz)
         
-        if select_viz == 'How Tweets are spread' :
+        if select_viz == 'Tweet distribution' :
             disp = Image.open('resources/imgs/Tweet_distribution.png')
             st.image(disp,width=600)
-            st.subheader('Observations')
+            st.subheader('Insights')
             st.markdown('* Most tweets are PRO climate change - That is good news for environmentally conscious companies.')
             st.markdown('* 23% of the tweets are Facts/News - Meaning there is a lot of media coverage towards the topic.')
             
         if select_viz == 'Buzzwords' :
             disp_1 = Image.open('resources/imgs/word_cloud.png')
             st.image(disp_1,width=690)            
-            st.subheader('Observations')
+            st.subheader('Insights')
             st.markdown('* The top 3 buzzwords accross all classes are climate change and rt (Retweet).'\
                        'The frequency of rt ( Retweet ) means that a lot of the same information and/or '\
                         'opinions are being shared and viewed by large audiences.')
@@ -489,31 +490,16 @@ def main():
         if select_viz == 'Length of Tweets' :
             disp = Image.open('resources/imgs/tweet_length.png')
             st.image(disp,width=600)
-            st.subheader('Observations')
+            st.subheader('Insights')
             st.markdown('* PRO climate change tweets are generally longer with consistent length distribution.')
             st.markdown('* ANTI climate change tweets are generally shorter with inconsistent length distribution.')
             st.markdown('* Neutral climate change tweets tend to have the most variability in tweet length.')
-
-
-        if select_viz == 'Named Entities' :
-            disp_1 = Image.open('resources/imgs/entity_pro.png')
-            st.image(disp_1,width=680)
-            disp_2 = Image.open('resources/imgs/entity_anti.png')
-            st.image(disp_1,width=680)
-            st.subheader('What are Named Entities ?')
-            st.markdown('In information extraction, a named entity is a real-world object,'\
-                        'such as persons, locations, organizations, products, etc.,'\
-                        'that can be denoted with a proper name. It can be abstract or have a physical existence.')
-            st.subheader('Observations')
-            st.markdown('* Organisations , People & Geo-Political entities appear frequently in tweets.')
-            st.markdown('* Time and Location information generally appear less in tweets.')
-            st.markdown(' More info on the subject - https://monkeylearn.com/blog/named-entity-recognition/ ' )
 
         if select_viz == 'Most used Emojis' :
             disp = Image.open('resources/imgs/top_emoji.png')
             disp = Image.open('resources/imgs/all_emojis.jpg')
             st.image(disp,width=600)
-            st.subheader('Observations')
+            st.subheader('Insights')
             st.markdown('* The Tweets emojis show varying sentiment , From expressing care and concern '\
                         '( i.e Heart and Globe emojis ) to an expression of ridicule and disbelief '\
                         '( i.e Laughing and Rolling eyes emojis )')
@@ -521,8 +507,10 @@ def main():
     # Building out the predication page
     if selection == "Tweet analyser":
         st.subheader("Predict a person's stance on climate change based on their tweet")
+        
         # Creating a text box for user input
         tweet_text = st.text_area("Enter Tweet")
+        
         # Create tweet classifier logic ( with 3 models )
         
         model_list = st.selectbox('Select classification model ' , all_models)
@@ -565,11 +553,11 @@ def main():
     if selection == "Live Sentiment Analysis":
             st.subheader("Gauge how people felt about climate change in the last 24-hours")
             disp = Image.open('resources/imgs/twitter_api.png')
-            st.image(disp,width=100)
+            st.image(disp,width=250)
             if st.button("Generate Daily Sentiment"):
                 
                 # Define Twitter API authentication
-                with st.spinner('Collecting Tweets, Please Wait...'):
+                with st.spinner('Collecting Latest Tweets, Please Wait...'):
                     auth = tw.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
                     auth.set_access_token(ACCESS_TOKEN, ACCESS_SECRET)
                     api = tw.API(auth, wait_on_rate_limit=True)
