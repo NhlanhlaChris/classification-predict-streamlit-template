@@ -28,11 +28,11 @@ import tweepy as tw
 # Plotting dependencies
 import seaborn as sns
 import matplotlib.style as style 
-sns.set(font_scale=3.5)
+sns.set(font_scale=4.5)
 
 ###------------------------DEFINE DATA------------------------###
 
-# Load pipeline model
+# Load pipeline models
 
 model_svc = joblib.load('resources/lscv_model.pkl')
 model_lr = joblib.load('resources/lr_model.pkl')
@@ -61,13 +61,11 @@ pro_hash = ['#climate','#BeforeTheFlood','#climatechange','#ImVotingBecause','#C
 
 # List of Brand ambassodors available, who are pro climate change
 
-people = ['Amy Harmon','Bill Nye','Bill McKibben','Brenda Ekwurzel','Ellie Goulding',
-          'Hugh Evans','John Legend','Leonardo DiCaprio' ,'McKenzie Wark','Neil deGrasse Tyson',
-          'Oliver Milman' ,'Susan Sarandon','Taylor Swift' ,'William LeGate']
+people = ['Candice Hutchings','Immy Lucas','Leonardo DiCaprio' ,'McKenzie Wark','Neil deGrasse Tyson',
+          'Sedona Christina','Shelbizleee','Susan Sarandon','Taylor Swift' ,'William LeGate']
 
-organisations = ['Beyond Coal','ClimateLaunchpad','Docsforclimate','Earth Life',
-                 'Environmental Protection Agency','Greenpeace',
-                 'Rainforest Connection','SUSTAIN-Africa','The Climate Reality Project',
+organisations = ['Beyond meat','Earth Life','EcoPlum','LushCosmetics','Numi Organic Tea',
+                 'Patagonia' ,'Seventh Generation','SUSTAIN-Africa','The Climate Reality Project',
                 'The YEARS Project']
 
 # List of visualisations to use for insights and information page
@@ -77,7 +75,7 @@ viz = ['Tweet distribution' ,'Buzzwords',
 
 # List of all models
 
-all_models = ['Linear SVC' , 'Logistic regression' , 'K nearest neighbors']
+all_models = ['Linear SVC' , 'Logistic Regression' , 'K Nearest Neighbors']
 
 
 # Twitter API Keys
@@ -121,6 +119,10 @@ def main():
     # Building out landing page
     
     if selection == 'Welcome' :
+        st.markdown('')
+        st.markdown('The **Find your niche** app , helps environmentally conscious companies gain **valuable market insights** '\
+                    'and maximise their business **marketing strategy** by using cutting edge machine learning tools to efficiently '\
+                   '**target potential customers** on Twitter.')
         
         img = Image.open('resources/imgs/Landing_page_image.png')
         st.image(img,width=710)
@@ -141,40 +143,46 @@ def main():
         if sel == 'Organisations' :            
             sel_org = st.selectbox('Select Organisation' , organisations )
             
-            # Beyond coal    
-            if sel_org == 'Beyond Coal' :
-                st.subheader('Beyond Coal')
-                img = Image.open('resources/imgs/Org/beyond_coal.jpg')
+            # Patagonia    
+            if sel_org == 'Patagonia' :
+                st.subheader('Patagonia')
+                img = Image.open('resources/imgs/Org/patagonia.jpeg')
                 st.image(img,width=150)
                 st.subheader('Who are they?')
-                st.markdown('The Beyond Coal movement is a campaign by environmental '\
-                            'group the Sierra Club to promote renewable energy instead of coal. ' \
-                            'Their primary objective is to close coal power plants in the United States.')
+                st.markdown('Activewear retailers, selling everything from snow gear to fleece '\
+                            'to sleeping bags that appeal to the all-things-adventure crowd. '\
+                            'Patagonia’s corporate philosophy is all about going green. '\
+                            'They’ve built repair centers around the world to increase the longevity '\
+                            'of their products and lower their carbon footprint.')
                 st.subheader('Get in touch')
-                st.markdown('https://beyond-coal.eu/')
+                st.markdown('https://www.patagonia.com/home/')
                 
-            # Epa
-            if sel_org == 'Environmental Protection Agency' :
-                st.subheader('Environmental Protection Agency')
-                img = Image.open('resources/imgs/Org/epa.png')
+            # LushCosmetics
+            if sel_org == 'LushCosmetics' :
+                st.subheader('LushCosmetics')
+                img = Image.open('resources/imgs/Org/lush.png')
                 st.image(img,width=150)
                 st.subheader('Who are they?')
-                st.markdown('The Environmental Protection Agency is an independent agency,' \
-                            'specifically an independent executive agency, of the United States' \
-                            'federal government for environmental protection.')
+                st.markdown('An all-natural bath and body brand that makes everything from shampoos '\
+                            'and fragrances to massage bars and bath bombs that inspire worship from '\
+                            'beauty bloggers around the globe. Lush is dedicated to eco-friendly products '\
+                            'and practices, like creating solid shampoo bars to reduce packaging waste '\
+                            'and offering free products to customers who bring in empty product packaging to recycle.')
                 st.subheader('Get in touch')
-                st.markdown('https://www.epa.gov/')
+                st.markdown('https://www.lushusa.com/')
                 
-            # Rainforest
-            if sel_org == 'Rainforest Connection' :
-                st.subheader('Rainforest Connection')
-                img = Image.open('resources/imgs/Org/rainforest.jpg')
+            # EcoPlum
+            if sel_org == 'EcoPlum' :
+                st.subheader('EcoPlum')
+                img = Image.open('resources/imgs/Org/eco_plum.jpg')
                 st.image(img,width=150)
                 st.subheader('Who are they?')
-                st.markdown('Rainforest Connection (RFCx) creates acoustic monitoring' \
-                            'systems for those who wish to end illegal deforestation in real-time.')
-                st.subheader('Get in touch')
-                st.markdown('https://rfcx.org/home')
+                st.markdown('EcoPlum Business Gifts aims to disrupt the promotional products '\
+                            'industry and reduce the amount of plastic and other waste produced '\
+                            'by this industry. EcoPlum will help you choose the best product for '\
+                            'your audience, have it customized with your branded logo or message, '\
+                            'and ensure it lives up to rigorous standards for environmental and social sustainability.')
+                st.markdown('https://business.ecoplum.com/')
                 
             # Sustain    
             if sel_org == 'SUSTAIN-Africa' :
@@ -189,17 +197,20 @@ def main():
                 st.subheader('Get in touch')
                 st.markdown('http://www.waterandnature.org/initiatives/sustain')
                 
-            # ClimateLaunchPad
-            if sel_org == 'ClimateLaunchpad' :
-                st.subheader('ClimateLaunchpad')
-                img = Image.open('resources/imgs/Org/climate_lp.jpg')
+            # Seventh Generation
+            if sel_org == 'Seventh Generation' :
+                st.subheader('Seventh Generation')
+                img = Image.open('resources/imgs/Org/seven.png')
                 st.image(img,width=150)
                 st.subheader('Who are they?')
-                st.markdown('ClimateLaunchpad is the world’s largest green business ideas competition.'\
-                            'Our mission is to unlock the world’s cleantech potential that addresses' \
-                            'climate change. The competition creates a stage for those ideas.')
+                st.markdown('Seventh Generation is a cleaning products company that revolutionized '\
+                            'the cleaning industry with eco-friendly cleaning products free of harmful '\
+                            'toxins and chemicals. Seventh Generation is a pretty traditional green company, '\
+                            'but the secret to their success is how they’ve been able to expand outside '\
+                            'of the typical customer base by highlighting product benefits that appeal '\
+                            'to all consumers—not just eco-folks.')
                 st.subheader('Get in touch')
-                st.markdown('https://climatelaunchpad.org/')
+                st.markdown('https://www.seventhgeneration.com/home')
                 
             # ClimateReality
             if sel_org == 'The Climate Reality Project' :
@@ -223,18 +234,21 @@ def main():
                 st.subheader('Get in touch')
                 st.markdown('https://theyearsproject.com/')
                 
-            # Docforclimate
-            if sel_org == 'Docsforclimate' :
-                st.subheader('Docsforclimate')
-                img = Image.open('resources/imgs/Org/doc_for_climate.png')
+            # Beyond meat
+            if sel_org == 'Beyond meat' :
+                st.subheader('Beyond meat')
+                img = Image.open('resources/imgs/Org/beyond_meat.jpg')
                 st.image(img,width=150)
                 st.subheader('Who are they?')
-                st.markdown('The purpose of the letter is to increase public and political awareness' \
-                            'about the urgency of climate change and to demonstrate the link' \
-                            'between climate change and health. In addition, the letter' \
-                            'specifies measures that are needed to reduce greenhouse gas emissions.')
+                st.markdown('Beyond Meat is shaking up the food industry by creating delicious, '\
+                            'plant-based “meat” products (carnivore approved!) that are better for ' \
+                            'human health, the environment, climate change and animals. All of Beyond ' \
+                            'Meat’s branding focuses on the good they’re doing for the environment ' \
+                            'and their consumers. By combining cool graphics and drool-worthy product photos, '\
+                            'they’re able to show the benefit on all sides: how their products are saving ' \
+                            'the planet while saving their consumers’ bodies.')
                 st.subheader('Get in touch')
-                st.markdown('https://www.docsforclimate.be/')
+                st.markdown('https://www.beyondmeat.com/')
             
             # Earth Life    
             if sel_org == 'Earth Life' :
@@ -247,21 +261,24 @@ def main():
                 st.subheader('Get in touch')
                 st.markdown('https://earthlife.org.za/')
                 
-            # Greenpeace
-            if sel_org == 'Greenpeace' :
-                st.subheader('Greenpeace')
-                img = Image.open('resources/imgs/Org/greenpeace.png')
+            # Numi Organic Tea
+            if sel_org == 'Numi Organic Tea' :
+                st.subheader('Numi Organic Tea')
+                img = Image.open('resources/imgs/Org/numi_tea.jpg')
                 st.image(img,width=150)
                 st.subheader('Who are they?')
-                st.markdown('Greenpeace is a non-governmental environmental organization'\
-                            'with offices in over 55 countries and an international coordinating'\
-                            'body in Amsterdam, the Netherlands'\
-                            'Greenpeace exists because this fragile earth deserves a voice.'\
-                            'It needs solutions. It needs change. It needs action.')
+                st.markdown('Numi Tea’s design and branding screams organic and eco-friendly. '\
+                            'Just like green practices are a part of their brand DNA, that '\
+                            'eco-friendly vibe is a part of their design DNA as well. '\
+                            'Everything in Numi Tea’s design and branding screams organic and eco-friendly. '\
+                            'Just like green practices are a part of their brand DNA, that eco-friendly '\
+                            'vibe is a part of their design DNA as well. Numi uses a lot of earth tones '\
+                            'like brown in their design and branding. This isn’t super common, '\
+                            'but makes total sense for an organic brand.')
                 st.subheader('Get in touch')
-                st.markdown('https://www.greenpeace.org/international/')
+                st.markdown('https://numitea.com/')
 
-        # Build people selection
+        # Build people selection page
         
         else :
             sel_people = st.selectbox('Select Person' , people )
@@ -270,7 +287,7 @@ def main():
             if sel_people == 'Neil deGrasse Tyson' :                
                 st.subheader('Neil deGrasse Tyson')
                 img = Image.open('resources/imgs/People/Neil_tyson.jpg')
-                st.image(img,width=150)
+                st.image(img,width=180)
                 st.subheader('Who are they?')
                 st.markdown('Neil deGrasse Tyson is an American astrophysicist, cosmologist,' \
                             'planetary scientist, author, and science communicator. Since 1996,'\
@@ -279,18 +296,21 @@ def main():
                 st.subheader('Get in touch')
                 st.markdown('https://twitter.com/neiltyson')
                 
-            # Bill McKibben
-            if sel_people == 'Bill McKibben' :                
-                st.subheader('Bill McKibben')
-                img = Image.open('resources/imgs/People/Bill_Mc.jpg')
-                st.image(img,width=150)
+            # Candice Hutchings
+            if sel_people == 'Candice Hutchings' :                
+                st.subheader('Candice Hutchings')
+                img = Image.open('resources/imgs/People/Candice.png')
+                st.image(img,width=180)
                 st.subheader('Who are they?')
-                st.markdown('William Ernest "Bill" McKibben is an American environmentalist,'\
-                            'author, and journalist who has written extensively on the impact'\
-                            'of global warming. He is the Schumann Distinguished Scholar at Middlebury College'\
-                            'and leader of the climate campaign group 350.org.')
+                st.markdown('Candice, the face of “The Edgy Veg”, is on a journey to revolutionize '\
+                            'how we think about food, eco-conscious living, and feminism. Author of the cookbook, '\
+                            '”138 Carnivore-Approved Vegan Recipes”, Candice delivers vegan recipes '\
+                            'with attitude and comedy. Edgy by nature, both her popular YouTube channel, '\
+                            'and Instagram pages have disrupted the vegan community with her candid and '\
+                            'humorous take on activism not only for animals and food built differently, '\
+                            'but also mental health, the environment, and female empowerment. ')
                 st.subheader('Get in touch')
-                st.markdown('https://twitter.com/billmckibben')
+                st.markdown('https://www.youtube.com/user/stillcurrentstudios/about')
                 
             
             
@@ -298,7 +318,7 @@ def main():
             if sel_people == 'McKenzie Wark' :                
                 st.subheader('McKenzie Wark')
                 img = Image.open('resources/imgs/People/McKenzie.jpg')
-                st.image(img,width=150)
+                st.image(img,width=180)
                 st.subheader('Who are they?')
                 st.markdown('McKenzie Wark (born 1961) is an Australian-born writer and scholar.'\
                             'Wark is known for her writings on media theory, critical theory,'\
@@ -312,7 +332,7 @@ def main():
             if sel_people == 'Leonardo DiCaprio' :                
                 st.subheader('Leonardo DiCaprio')
                 img = Image.open('resources/imgs/People/Leo.jpg')
-                st.image(img,width=150)
+                st.image(img,width=180)
                 st.subheader('Who are they?')
                 st.markdown('Leonardo Wilhelm DiCaprio is an American actor and producer.'\
                             'He has often played unconventional parts, particularly in biopics and period films.'\
@@ -322,11 +342,11 @@ def main():
                 st.markdown('https://twitter.com/LeoDiCaprio')
                 
                 
-            # Neil deGrasse Tyson
+            # Susan Sarandon
             if sel_people == 'Susan Sarandon' :                
                 st.subheader('Susan Sarandon')
                 img = Image.open('resources/imgs/People/Susan.jpg')
-                st.image(img,width=150)
+                st.image(img,width=180)
                 st.subheader('Who are they?')
                 st.markdown('Susan Abigail Sarandon is an American actress and activist.'\
                             'She has received an Academy Award, a British Academy Film Award,'\
@@ -336,61 +356,39 @@ def main():
                 st.subheader('Get in touch')
                 st.markdown('https://twitter.com/SusanSarandon')
                 
-            # Brenda Ekwurzel
-            if sel_people == 'Brenda Ekwurzel' :                
-                st.subheader('Brenda Ekwurzel')
-                img = Image.open('resources/imgs/People/Brenda.jpg')
-                st.image(img,width=150)
+            # Sedona Christina
+            if sel_people == 'Sedona Christina' :                
+                st.subheader('Sedona Christina')
+                img = Image.open('resources/imgs/People/Sedona.png')
+                st.image(img,width=180)
                 st.subheader('Who are they?')
-                st.markdown('Brenda Ekwurzel is a senior climate scientist and the director of climate'\
-                            'science for the Climate & Energy Program at the Union of Concerned Scientists (UCS).'\
-                            'In her role, she ensures that program analyses reflect robust and relevant climate science,'\
-                            'and researches the influence of major carbon producers on rising global average temperatures and sea level.')
+                st.markdown('Sedona is a 25 year old Canadian living in Seattle, advocating sustainable vegan '\
+                            'and intentional living. She describes herself as a millennial gal with a knack for wellness, '\
+                            'movement, self care, entrepreneurialism, and leaving this world better than we found it.')
                 st.subheader('Get in touch')
-                st.markdown('https://twitter.com/BrendaEkwurzel')
+                st.markdown('https://www.youtube.com/user/720tanner/about')
+
                 
-            # Oliver Milman
-            if sel_people == 'Oliver Milman' :                
-                st.subheader('Oliver Milman')
-                img = Image.open('resources/imgs/People/Oliver.jpg')
-                st.image(img,width=150)
-                st.subheader('Who are they?')
-                st.markdown('Oliver Milman is an environment reporter for Guardian US.')
-                st.subheader('Get in touch')
-                st.markdown('https://twitter.com/olliemilman')
                 
-            # Ellie Goulding
-            if sel_people == 'Ellie Goulding' :                
-                st.subheader('Ellie Goulding')
-                img = Image.open('resources/imgs/People/Ellie.jpg')
-                st.image(img,width=150)
+            # Shelbizleee
+            if sel_people == 'Shelbizleee' :                
+                st.subheader('Shelbizleee')
+                img = Image.open('resources/imgs/People/Shelbi.png')
+                st.image(img,width=180)
                 st.subheader('Who are they?')
-                st.markdown('Elena Jane Goulding is an English singer and songwriter.'\
-                            'Her career began when she met record producers Starsmith and Frankmusik,'\
-                            'and she was later spotted by Jamie Lillywhite, who later became her manager and A&R.'\
-                            'After signing to Polydor Records in July 2009, Goulding released her debut extended play,'\
-                            'An Introduction to Ellie Goulding later that year.')
+                st.markdown('Shelbi has a Bachelor\'s degree in Environmental Science and a passion for sustainability. '\
+                            'Her  mission for her  youtube channel is to create a community where the average person '\
+                            'can come and feel like they can make a difference. Living a sustainable lifestyle can '\
+                            'be a daunting task, but her videos can help you break it down step by step and explore '\
+                            'the best tips & tricks of eco-minimalism.')
                 st.subheader('Get in touch')
-                st.markdown('https://twitter.com/elliegoulding')
-                
-            # Hugh Evans
-            if sel_people == 'Hugh Evans' :                
-                st.subheader('Hugh Evans')
-                img = Image.open('resources/imgs/People/Hugh.jpg')
-                st.image(img,width=150)
-                st.subheader('Who are they?')
-                st.markdown('Hugh Evans is an Australian humanitarian. Evans is the co-founder of'\
-                            'both The Oaktree Foundation and Global Citizen, a Global Poverty Project.'\
-                            'He has received domestic and international accolades for his work'\
-                            'in promoting youth advocacy and volunteerism in order to reduce extreme poverty in developing countries.')
-                st.subheader('Get in touch')
-                st.markdown('https://twitter.com/Hughcevans')
+                st.markdown('https://www.youtube.com/user/Shelbizleee')
                 
             # William LeGate
             if sel_people == 'William LeGate' :                
                 st.subheader('William LeGate')
                 img = Image.open('resources/imgs/People/William.jpg')
-                st.image(img,width=150)
+                st.image(img,width=180)
                 st.subheader('Who are they?')
                 st.markdown('William LeGate is an American entrepreneur, Thiel Fellow,'\
                             'computer programmer and activist. A self-taught programmer from the age of 12,'\
@@ -404,7 +402,7 @@ def main():
             if sel_people == 'Taylor Swift' :                
                 st.subheader('Taylor Swift')
                 img = Image.open('resources/imgs/People/Taylor.jpg')
-                st.image(img,width=150)
+                st.image(img,width=180)
                 st.subheader('Who are they?')
                 st.markdown('Taylor Alison Swift is an American singer-songwriter.'\
                             'She is known for her narrative songwriting, that often centers'\
@@ -412,47 +410,20 @@ def main():
                 st.subheader('Get in touch')
                 st.markdown('https://twitter.com/taylorswift13')
                 
-            # Amy Harmon
-            if sel_people == 'Amy Harmon' :                
-                st.subheader('Amy Harmon')
-                img = Image.open('resources/imgs/People/Amy.jpg')
-                st.image(img,width=150)
+            # Immy Lucas
+            if sel_people == 'Immy Lucas' :                
+                st.subheader('Immy Lucas')
+                img = Image.open('resources/imgs/People/Immy.png')
+                st.image(img,width=180)
                 st.subheader('Who are they?')
-                st.markdown('Amy Harmon (born September 17, 1968) is an American journalist.'\
-                            'She won a Pulitzer Prize as a correspondent for The New York Times'\
-                            'covering the impact of science and technology on everyday life.'\
-                            'Harmon uses narrative storytelling to illuminate the human dilemmas'\
-                            'posed by advances in science. In 2013, she was named a Guggenheim Fellow.')
+                st.markdown('Immy is  the creator of the YouTube channel \'Sustainably Vegan\' and environmental movement, '\
+                            'The Low Impact Movement. She describes herself as "just a regular person who loves '\
+                            'the environment and tries their best everyday to lower their waste and live a low '\
+                            'impact lifestyle."  She believes in the importance of intersectionality and inclusivity, '\
+                            'which is why her channel is meant for everyone, whoever you are.')
                 st.subheader('Get in touch')
-                st.markdown('https://twitter.com/amy_harmon')
+                st.markdown('https://www.youtube.com/channel/UCkq2gEWE-i647M71bh7zDxA/about')
                 
-            
-            # John Legend
-            if sel_people == 'John Legend' :                
-                st.subheader('John Legend')
-                img = Image.open('resources/imgs/People/John.jpg')
-                st.image(img,width=150)
-                st.subheader('Who are they?')
-                st.markdown('John Roger Stephens, known professionally as John Legend,'\
-                            'is an American singer, songwriter, producer, actor, and philanthropist.'\
-                            'Prior to the release of Legends debut album, Get Lifted,'\
-                            'he had collaborated with already established artists and signed to Kanye West GOOD Music.')
-                st.subheader('Get in touch')
-                st.markdown('https://twitter.com/johnlegend')
-                
-            # Bill Nye
-            if sel_people == 'Bill Nye' :                
-                st.subheader('Bill Nye')
-                img = Image.open('resources/imgs/People/Bill_Nye.jpg')
-                st.image(img,width=150)
-                st.subheader('Who are they?')
-                st.markdown('William Sanford Nye, popularly known as Bill Nye the Science Guy,'\
-                            'is an American science communicator, television presenter, and mechanical engineer.'\
-                            'He is best known as the host of the PBS and syndicated childrens science'\
-                            'show Bill Nye the Science Guy, the Netflix show Bill Nye Saves the World,'\
-                            'and for his many subsequent appearances in popular media as a science educator.')
-                st.subheader('Get in touch')
-                st.markdown('https://twitter.com/BillNye')
 
     
     # Building out Hashtag generation page
@@ -479,30 +450,37 @@ def main():
             
         if select_viz == 'Buzzwords' :
             disp_1 = Image.open('resources/imgs/word_cloud.png')
-            st.image(disp_1,width=690)            
+            st.image(disp_1,width=710)            
             st.subheader('Insights')
-            st.markdown('* The top 3 buzzwords accross all classes are climate change and rt (Retweet).'\
-                       'The frequency of rt ( Retweet ) means that a lot of the same information and/or '\
+            st.markdown('* The top 3 buzzwords accross all classes are **climate**, **change** and **rt (Retweet)**.'\
+                       'The frequency of **rt ( Retweet )** means that a lot of the same information and/or '\
                         'opinions are being shared and viewed by large audiences.')
-            st.markdown('* In PRO climate change tweets, words like real, believe, think and fight occur frequently. ')
-            st.markdown('* In contrast ANTI climate change tweets contain words like hoax, scam, tax, liberal and fake.')
+            st.markdown('* In PRO climate change tweets... words like **real**, **believe**, **think** and **fight** occur frequently. ')
+            st.markdown('* In contrast ANTI climate change tweets contain words like **hoax**, **scam**, **tax**, '
+                        '**liberal** and **fake**.')
             
         if select_viz == 'Length of Tweets' :
             disp = Image.open('resources/imgs/tweet_length.png')
             st.image(disp,width=600)
             st.subheader('Insights')
-            st.markdown('* PRO climate change tweets are generally longer with consistent length distribution.')
-            st.markdown('* ANTI climate change tweets are generally shorter with inconsistent length distribution.')
-            st.markdown('* Neutral climate change tweets tend to have the most variability in tweet length.')
+            st.markdown('* PRO climate change tweets are generally longer with **consistent length** distribution ,'
+                       'most tweets from this class aim to educate and raise awareness ,hence giving more attention and detail '\
+                       'to the content.')
+            st.markdown('* ANTI climate change tweets are generally shorter with **inconsistent length** distribution, '
+                       'generally this is due to fact that most people who dismiss man-made climate change support their stance '\
+                       'with other peoples theories , which often have no basis.')
+            st.markdown('* Neutral climate change tweets tend to have the **most variability** in tweet length.')
+            st.markdown('* News/Factual climate change tweets tend to have the **least variability** in tweet length, '
+                       'Which is expected considering that news reporters aim to be consise and direct at all times.' )
 
         if select_viz == 'Most used Emojis' :
             disp = Image.open('resources/imgs/top_emoji.png')
             disp = Image.open('resources/imgs/all_emojis.jpg')
             st.image(disp,width=600)
             st.subheader('Insights')
-            st.markdown('* The Tweets emojis show varying sentiment , From expressing care and concern '\
-                        '( i.e Heart and Globe emojis ) to an expression of ridicule and disbelief '\
-                        '( i.e Laughing and Rolling eyes emojis )')
+            st.markdown('* The Tweets emojis show varying sentiment , From expressing **care** and **concern** '\
+                        '( i.e Heart and Globe emojis ) to an expression of **ridicule** and **disbelief** '\
+                        '( i.e Laughing and Rolling eyes emojis ).')
             
     # Building out the predication page
     if selection == "Tweet analyser":
@@ -517,7 +495,7 @@ def main():
 
         if model_list == 'Linear SVC' :
             final_model = model_svc
-        elif model_list == 'Logistic regression' :
+        elif model_list == 'Logistic Regression' :
             final_model = model_lr
         else :
             final_model = model_knn
@@ -531,22 +509,27 @@ def main():
             if prediction[0] == 0:
                 prediction = 'Neutral'
                 c_img = Image.open('resources/imgs/neutral.png')
+                st.warning("This Tweet is : {}".format(prediction))
+                st.image(c_img,width=100)
 
             elif prediction[0] == 1:
                 prediction = 'PRO Climate Change'
                 c_img = Image.open('resources/imgs/pro.png')
+                st.success("This Tweet is : {}".format(prediction))
+                st.image(c_img,width=100)
 
             elif prediction[0] == 2:
                 prediction = 'Factual News'
                 c_img = Image.open('resources/imgs/news.png')
+                st.info("This Tweet is : {}".format(prediction))
+                st.image(c_img,width=100)
 
             else:
                 prediction = 'ANTI Climate Change'
                 c_img = Image.open('resources/imgs/anti.png')
-  
-            st.success("This Tweet is : {}".format(prediction))
-            st.image(c_img,width=100)
-        
+                st.error("This Tweet is : {}".format(prediction))
+                st.image(c_img,width=100)
+          
     
     # Build Live Tweet Streaming page
     
@@ -557,7 +540,7 @@ def main():
             if st.button("Generate Daily Sentiment"):
                 
                 # Define Twitter API authentication
-                with st.spinner('Collecting Latest Tweets, Please Wait...'):
+                with st.spinner('Collecting 200 Latest Tweets, Please Wait...'):
                     auth = tw.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
                     auth.set_access_token(ACCESS_TOKEN, ACCESS_SECRET)
                     api = tw.API(auth, wait_on_rate_limit=True)
@@ -589,14 +572,15 @@ def main():
                     y_pred = model_svc.predict(X)
                     tweet_df['sentiment'] = y_pred
                     
-                    # Displaying target distribution
+                    # Plot target distribution
 
-                    fig, axes = plt.subplots(figsize=(25, 20))
+                    fig, axes = plt.subplots(figsize=(35, 30))
 
                     pie_chart = axes.pie(tweet_df['sentiment'].value_counts(),
                                 labels=['Pro', 'News', 'Neutral', 'Anti'])
                     
-                    fig.suptitle('Distribution of the Tweets', fontsize=35)
+                    fig.suptitle('Distribution of the Tweets', fontsize=50)
+                    plt.tight_layout()
                 st.success('Done!')
                 st.pyplot()                
                 
