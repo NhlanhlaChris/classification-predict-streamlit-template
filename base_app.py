@@ -30,7 +30,7 @@ import seaborn as sns
 import matplotlib.style as style 
 sns.set(font_scale=4.5)
 
-###------------------------DEFINE DATA------------------------###
+###------------------------LOAD & DEFINE DATA------------------------###
 
 # Load pipeline models
 
@@ -42,7 +42,7 @@ model_knn = joblib.load('resources/knn_model.pkl')
 raw = pd.read_csv("resources/train.csv")
 
 
-# List of all Most Frequent pro hashtags
+# Most Frequent pro hashtags
 
 pro_hash = ['#climate','#BeforeTheFlood','#climatechange','#ImVotingBecause','#COP22',
  '#ParisAgreement','#ActOnClimate','#globalwarming','#environment',
@@ -59,7 +59,7 @@ pro_hash = ['#climate','#BeforeTheFlood','#climatechange','#ImVotingBecause','#C
  '#GreenNewDeal','#UniteBlue','#MarchForScience','#SDG13','#WEF','#Analytics','#deforestation',
  '#ClimateVoter','#Iamwithher','#SaveOurOcean','#AMJoy','#foodsecurity','#mitigation']
 
-# List of Brand ambassodors available, who are pro climate change
+# Brand ambassodors available, People & Organisations
 
 people = ['Candice Hutchings','Immy Lucas','Leonardo DiCaprio' ,'McKenzie Wark','Neil deGrasse Tyson',
           'Sedona Christina','Shelbizleee','Susan Sarandon','Taylor Swift' ,'William LeGate']
@@ -68,12 +68,12 @@ organisations = ['Beyond meat','Earth Life','EcoPlum','LushCosmetics','Numi Orga
                  'Patagonia' ,'Seventh Generation','SUSTAIN-Africa','The Climate Reality Project',
                 'The YEARS Project']
 
-# List of visualisations to use for insights and information page
+# Visualisations list to use for EDA & Insights page
 
 viz = ['Tweet distribution' ,'Buzzwords',
        'Length of Tweets','Most used Emojis']
 
-# List of all models
+# All models used
 
 all_models = ['Linear SVC' , 'Logistic Regression' , 'K Nearest Neighbors']
 
@@ -87,15 +87,10 @@ ACCESS_TOKEN  = '840149748354965504-6fGpkvdj6n53uVG5231Oq6PhyLzHlfO'
 ACCESS_SECRET = 'f17t2HIfmpsgh1IBxgdugigEH8Xuzhps7gjGT2jfLOgxT'
 
        
-# The main function where we will build the actual app
+###-----------------------------BUILD APP----------------------------------###
 
 def main():
-    """Tweet Classifier App with Streamlit """
-
-    # Creates a main title and subheader on your page -
-    # these are static across all pages
-    # st.title("Climate Change Belief Predictor")
-    # st.subheader("Predict if a person believes in climate change based on thier tweet")
+    """Find your niche App with Streamlit """
     
     html_temp = """
 	<div style="background-color:lightblue;padding:10px">
@@ -105,18 +100,15 @@ def main():
     """
     
     st.markdown(html_temp,unsafe_allow_html=True)
-    #st.subheader("Predict if a person believes in climate change based on thier tweet")
     
-    # Creating sidebar with selection box -
-    # you can create multiple pages this way
+    # Creating sidebar with selection box
     
     options = ['Welcome','EDA & Insights',"Tweet analyser", "Hashtag Generator",
-              'Ambassadors & Partners','Live Sentiment Analysis']
-    # selection = st.sidebar.selectbox("Select Activity", options)
+              'Ambassadors & Partners','Live Sentiment Analysis' , 'About Us']
     selection = st.sidebar.radio(label="Select Activity",  
                                     options=options)
                                     
-    # Building out landing page
+    # Build Welcome page
     
     if selection == 'Welcome' :
         st.markdown('')
@@ -131,8 +123,50 @@ def main():
         video_bytes = video_file.read()        
         st.video(video_bytes)
         
+    # Build About us page
+    
+    if selection == 'About Us' :
         
-    # Building out Brand Ambassodors page ( Organisation & People )
+        st.header('Meet the team that made it happen')
+        
+        st.markdown('')
+        st.markdown('**Mandla**')
+        img = Image.open('resources/imgs/mandla.jpg')
+        st.image(img,width=180)
+        st.markdown('https://www.linkedin.com/in/mandla-solomon-095063121/')
+        st.markdown('https://github.com/0731325603')
+        
+        st.markdown('')
+        st.markdown('**Chris**')
+        img = Image.open('resources/imgs/chris.jpg')
+        st.image(img,width=180)
+        st.markdown('https://www.linkedin.com/in/nhlanhla-christopher-mahlangu-56b771137/')
+        st.markdown('https://github.com/NhlanhlaChris')
+        
+        st.markdown('')
+        st.markdown('**Nicole**')
+        img = Image.open('resources/imgs/nicole.jpg')
+        st.image(img,width=180)
+        st.markdown('http://www.linkedin.com/in/nicole-meinie-xolisa')
+        st.markdown('https://github.com/NicoleMeinie')
+        
+        st.markdown('')
+        st.markdown('**Sibonelo**')
+        img = Image.open('resources/imgs/sibonelo.jpeg')
+        st.image(img,width=180)
+        st.markdown('https://www.linkedin.com/in/sibonelo-junior-malakiya-62302b144/')
+        st.markdown('https://github.com/SiboneloJunior')
+        
+        st.markdown('')
+        st.markdown('**Philani**')
+        img = Image.open('resources/imgs/philani.jpg')
+        st.image(img,width=180)
+        st.markdown('https://www.linkedin.com/in/philani-mkhize-519995149/')
+        st.markdown('https://github.com/Jamakasilwane')
+        
+                
+    # Building Ambassodors & Partners page ( Organisation & People )
+    
     if selection == 'Ambassadors & Partners' :
         st.subheader('Align your business with PRO climate change organisations and people')
         cat = ['Organisations' , 'People' ]
@@ -278,7 +312,7 @@ def main():
                 st.subheader('Get in touch')
                 st.markdown('https://numitea.com/')
 
-        # Build people selection page
+        # Build people selection
         
         else :
             sel_people = st.selectbox('Select Person' , people )
@@ -427,18 +461,20 @@ def main():
 
     
     # Building out Hashtag generation page
+    
     if selection == 'Hashtag Generator' :
         st.subheader('Generate PRO climate change hashtags your business can use for social media ads')
-        num_hash = st.slider('Select number of Hashtags to generate' , 1, 10 )
+        num_hash = st.slider('Drag the slider to select the number of Hashtags to generate' , 1, 10 )
         if st.button("Generate"):           
             rand_hash = random.sample(pro_hash,num_hash) 
             for i in range(len(rand_hash)):                
                 st.success(rand_hash[i])
                 
-    # Building out the "Market Research tools" page
+    # Build Market Research tools page
+    
     if selection == "EDA & Insights":
         st.subheader("Relevant exploratory data analysis to aid your market research")
-        # You can read a markdown file from supporting resources folder
+        
         select_viz = st.selectbox('Select Information' , viz)
         
         if select_viz == 'Tweet distribution' :
@@ -450,7 +486,7 @@ def main():
             
         if select_viz == 'Buzzwords' :
             disp_1 = Image.open('resources/imgs/word_cloud.png')
-            st.image(disp_1,width=710)            
+            st.image(disp_1,width=650)            
             st.subheader('Insights')
             st.markdown('* The top 3 buzzwords accross all classes are **climate**, **change** and **rt (Retweet)**.'\
                        'The frequency of **rt ( Retweet )** means that a lot of the same information and/or '\
@@ -474,15 +510,15 @@ def main():
                        'Which is expected considering that news reporters aim to be consise and direct at all times.' )
 
         if select_viz == 'Most used Emojis' :
-            disp = Image.open('resources/imgs/top_emoji.png')
-            disp = Image.open('resources/imgs/all_emojis.jpg')
+            disp = Image.open('resources/imgs/all_emojis.png')
             st.image(disp,width=600)
             st.subheader('Insights')
             st.markdown('* The Tweets emojis show varying sentiment , From expressing **care** and **concern** '\
                         '( i.e Heart and Globe emojis ) to an expression of **ridicule** and **disbelief** '\
                         '( i.e Laughing and Rolling eyes emojis ).')
             
-    # Building out the predication page
+    # Build Tweet analyser page
+    
     if selection == "Tweet analyser":
         st.subheader("Predict a person's stance on climate change based on their tweet")
         
@@ -502,7 +538,7 @@ def main():
         
         if st.button("Classify"):
                   
-            # Transforming user input with vectorizer
+            # Transform user input with vectorizer
             vect_text = [tweet_text]
             prediction = final_model.predict(vect_text)
               
@@ -550,16 +586,17 @@ def main():
                     search_words = "#climatechange" + " -filter:retweets"
 
                     # Get yesterdays date
+                    
                     today = date.today()
                     yesterday = today - timedelta(days = 1)
                     date_since = yesterday
+                    
+                    # Collect a list of tweets and store them in a df
 
                     tweets = tw.Cursor(api.search,
                                q=search_words,
                                lang="en",
-                               since=date_since).items(200)
-
-                    # Collect a list of tweets
+                               since=date_since).items(200)                    
 
                     tweet_list = [tweet.text for tweet in tweets]
 
@@ -572,12 +609,23 @@ def main():
                     y_pred = model_svc.predict(X)
                     tweet_df['sentiment'] = y_pred
                     
+                    # Calculate percentages
+                    
+                    pro_p = (len(tweet_df[tweet_df['sentiment'] == 1])/len(tweet_df))*100
+                    anti_p = (len(tweet_df[tweet_df['sentiment'] == -1])/len(tweet_df))*100
+                    news_p = (len(tweet_df[tweet_df['sentiment'] == 2])/len(tweet_df))*100
+                    neutral_p = (len(tweet_df[tweet_df['sentiment'] == 0])/len(tweet_df))*100
+                    
                     # Plot target distribution
 
                     fig, axes = plt.subplots(figsize=(35, 30))
 
                     pie_chart = axes.pie(tweet_df['sentiment'].value_counts(),
-                                labels=['Pro', 'News', 'Neutral', 'Anti'])
+                                labels=[f'Pro ({pro_p}%)',
+                                        f'News ({news_p}%)',
+                                        f'Neutral ({neutral_p}%)',
+                                        f'Anti ({anti_p}%)'],
+                                        )
                     
                     fig.suptitle('Distribution of the Tweets', fontsize=50)
                     plt.tight_layout()
