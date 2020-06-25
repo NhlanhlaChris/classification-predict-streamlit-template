@@ -621,10 +621,10 @@ def main():
                     fig, axes = plt.subplots(figsize=(35, 30))
 
                     pie_chart = axes.pie(tweet_df['sentiment'].value_counts(),
-                                labels=[f'Pro ({pro_p}%)',
-                                        f'News ({news_p}%)',
-                                        f'Neutral ({neutral_p}%)',
-                                        f'Anti ({anti_p}%)'],
+                                labels=[f'Pro ({round(pro_p ,2)}%)',
+                                        f'News ({round(news_p,2)}%)',
+                                        f'Neutral ({round(anti_p,2)}%)',
+                                        f'Anti ({round(neutral_p,2)}%)'],
                                         )
                     
                     fig.suptitle('Distribution of the Tweets', fontsize=50)
