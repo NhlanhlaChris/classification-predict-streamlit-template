@@ -1,14 +1,35 @@
 """
 
-    Simple Streamlit webserver application for serving developed classification
-    models.
+    Streamlit webserver application for classification machine learning tasks.
 
     Author: TEAM_3_DBN
 
-    Description: This file is used to launch a minimal streamlit web
-    application. You are expected to extend the functionality of this script
-    as part of your predict project.
-
+    Description: 
+    
+    This file launches a streamlit webapplication with the following tools :-
+    
+        1. Tweet Analyser
+            > Classify a text ( assuming it's a tweet ) into different climate change sentiment
+            categories ( i.e PRO , ANTI , NEUTRAL & NEWS/FACTUAL ) using 3 classification 
+            models ( i.e Linear SVC ,Logistic Regression & K Nearest Neighbors ).
+            
+        2. Hashtag Generator
+            > An interface allowing the user to generate a specified number of
+            random hashtags from a bag of PRO-Climate Change hashtags. 
+            
+        3. Ambassadors & Partners
+            > A collection of organisations and people found to be passionate about
+            climate change , exploring the possibility that the user will form valuable connections 
+            using the leads.
+        
+        4. Live Sentiment Analysis
+            > A tool that allows the user to extract the latest 200 tweets from Twitter
+            using the Twitter API and the tweepy library, proceed to classify them using the LinearSVC model,
+            Then generate a pie chart of the class distrutions using these predictions
+            
+    A welcome page with an introductory video is included along with a page about the app developers
+            
+        
 """
 ###------------------------IMPORT LIBRARIES------------------------###
 
